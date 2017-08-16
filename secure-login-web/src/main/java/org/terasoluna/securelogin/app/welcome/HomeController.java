@@ -18,6 +18,8 @@ package org.terasoluna.securelogin.app.welcome;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.inject.Inject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,32 +36,32 @@ import org.terasoluna.securelogin.domain.service.userdetails.LoggedInUser;
 @Controller
 public class HomeController {
 
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
     @Inject
     AccountSharedService accountSharedService;
 
     /**
      * Simply selects the home view to render by returning its name.
      */
-    @RequestMapping(value = "/", method = {RequestMethod.GET,
-        RequestMethod.POST})
-    public String home(@AuthenticationPrincipal LoggedInUser userDetails,
-        Model model) {
+    @RequestMapping(value = "/", method = {RequestMethod.GET, RequestMethod.POST})
+    public String home(@AuthenticationPrincipal LoggedInUser userDetails, Model model) {
 
         Account account = userDetails.getAccount();
 
         model.addAttribute("account", account);
 
-        if (accountSharedService
-            .isCurrentPasswordExpired(account.getUsername())) {
-            ResultMessages messages = ResultMessages.warning().add(
-                "w.sl.pe.0001");
+        logger.debug("\n\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ FIRSTNAME = {}", account.getFirstName());
+
+        if (accountSharedService.isCurrentPasswordExpired(account.getUsername())) {
+            ResultMessages messages = ResultMessages.warning().add("w.sl.pe.0001");
             model.addAttribute(messages);
         }
 
         LocalDateTime lastLoginDate = userDetails.getLastLoginDate();
         if (lastLoginDate != null) {
-            model.addAttribute("lastLoginDate", lastLoginDate
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            model.addAttribute("lastLoginDate",
+                lastLoginDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         }
 
         return "welcome/home";

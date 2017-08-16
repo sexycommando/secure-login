@@ -44,24 +44,21 @@
                     <groupId>${project.groupId}</groupId>
                     <artifactId>secure-login-env</artifactId>
                 </dependency>
-            
-        <dependency>
-            <groupId>org.terasoluna.gfw</groupId>
-            <artifactId>terasoluna-gfw-validator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.passay</groupId>
-            <artifactId>passay</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-    </dependencies>
+                <dependency>
+                    <groupId>org.terasoluna.gfw</groupId>
+                    <artifactId>terasoluna-gfw-validator</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.passay</groupId>
+                    <artifactId>passay</artifactId>
+                    <version>1.1.0</version>
+                </dependency>
+            </dependencies>
         </profile>
         <profile>
             <id>warpack</id>
@@ -79,24 +76,21 @@
                         </exclusion>
                     </exclusions>
                 </dependency>
-            
-        <dependency>
-            <groupId>org.terasoluna.gfw</groupId>
-            <artifactId>terasoluna-gfw-validator</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.passay</groupId>
-            <artifactId>passay</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-    </dependencies>
+                <dependency>
+                    <groupId>org.terasoluna.gfw</groupId>
+                    <artifactId>terasoluna-gfw-validator</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.passay</groupId>
+                    <artifactId>passay</artifactId>
+                    <version>1.1.0</version>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 
@@ -139,7 +133,7 @@
 
         <!-- JavaEE/SE APIs -->
         <!--  Required only for Tomcat. If run on other J2EE server,
-            remove this dependency and use provided tag libraries. -->
+        remove this dependency and use provided tag libraries. -->
         <dependency>
             <groupId>org.apache.taglibs</groupId>
             <artifactId>taglibs-standard-jstlel</artifactId>
@@ -148,18 +142,18 @@
 
         <!-- == Begin Database == -->
         <!--  JDBC Driver is normally provided by application server .
-              But if you want to include JDBC Driver in the application,
-              add this dependency . -->
-<!--         <dependency> -->
-<!--             <groupId>org.postgresql</groupId> -->
-<!--             <artifactId>postgresql</artifactId> -->
-<!--             <scope>runtime</scope> -->
-<!--         </dependency> -->
-<!--         <dependency> -->
-<!--             <groupId>com.oracle</groupId> -->
-<!--             <artifactId>ojdbc7</artifactId> -->
-<!--             <scope>runtime</scope> -->
-<!--         </dependency> -->
+        But if you want to include JDBC Driver in the application,
+        add this dependency . -->
+        <!--         <dependency> -->
+        <!--             <groupId>org.postgresql</groupId> -->
+        <!--             <artifactId>postgresql</artifactId> -->
+        <!--             <scope>runtime</scope> -->
+        <!--         </dependency> -->
+        <!--         <dependency> -->
+        <!--             <groupId>com.oracle</groupId> -->
+        <!--             <artifactId>ojdbc7</artifactId> -->
+        <!--             <scope>runtime</scope> -->
+        <!--         </dependency> -->
         <!-- == End Database == -->
 
         <!-- == Begin Unit Test == -->

@@ -12,7 +12,7 @@
 
     <bean id="dateFactory" class="org.terasoluna.gfw.common.date.jodatime.DefaultJodaTimeDateFactory" />
 
-    <bean id="realDataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
           destroy-method="close">
         <property name="driverClassName" value="${database.driverClassName}" />
         <property name="url" value="${database.url}" />
@@ -25,15 +25,11 @@
         <property name="maxWaitMillis" value="${cp.maxWait}" />
     </bean>
 
-    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
-        <constructor-arg index="0" ref="realDataSource" />
-    </bean>
-
-    <jdbc:initialize-database data-source="dataSource"
+    <!--<jdbc:initialize-database data-source="dataSource"
                               ignore-failures="ALL">
         <jdbc:script location="classpath:/database/${database}-schema.sql" encoding="UTF-8" />
         <jdbc:script location="classpath:/database/${database}-dataload.sql" encoding="UTF-8" />
-    </jdbc:initialize-database>
+    </jdbc:initialize-database>-->
 
     <bean id="transactionManager"
           class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -94,13 +90,5 @@
         <property name="server" ref="mbeanServer" />
     </bean>
     <!-- END -->
-
-    <!-- Run H2 web server within application that will access the same in-memory database -->
-    <bean id="h2Server" class="org.h2.tools.Server" factory-method="createTcpServer" init-method="start" destroy-method="stop" depends-on="h2WebServer">
-        <constructor-arg value="-tcp,-tcpAllowOthers,-tcpPort,9092"/>
-    </bean>
-    <bean id="h2WebServer" class="org.h2.tools.Server" factory-method="createWebServer" init-method="start" destroy-method="stop">
-        <constructor-arg value="-web,-webAllowOthers,-webPort,8082"/>
-    </bean>
 
 </beans>

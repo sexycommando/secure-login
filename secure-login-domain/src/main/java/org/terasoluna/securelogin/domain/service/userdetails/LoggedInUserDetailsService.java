@@ -17,7 +17,11 @@ package org.terasoluna.securelogin.domain.service.userdetails;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -32,27 +36,28 @@ import org.terasoluna.securelogin.domain.service.account.AccountSharedService;
 @Service
 public class LoggedInUserDetailsService implements UserDetailsService {
 
-    @Inject
-    AccountSharedService accountSharedService;
+	private static final Logger logger = LoggerFactory.getLogger(LoggedInUser.class);
 
-    @Transactional(readOnly = true)
-    @Override
-    public UserDetails loadUserByUsername(String username)
-        throws UsernameNotFoundException {
-        try {
-            Account account = accountSharedService.findOne(username);
-            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-            for (Role role : account.getRoles()) {
-                authorities.add(new SimpleGrantedAuthority("ROLE_"
-                    + role.getRoleValue()));
-            }
-            return new LoggedInUser(account,
-                accountSharedService.isLocked(username),
-                accountSharedService.getLastLoginDate(username),
-                authorities);
-        } catch (ResourceNotFoundException e) {
-            throw new UsernameNotFoundException("user not found", e);
-        }
-    }
+	@Inject
+	AccountSharedService accountSharedService;
+
+	@Transactional(readOnly = true)
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		logger.debug("\n\t####################### USERNAME = {}", username);
+
+		try {
+			Account account = accountSharedService.findOne(username);
+			List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+			for (Role role : account.getRoles()) {
+				authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleValue()));
+			}
+			return new LoggedInUser(account, accountSharedService.isLocked(username),
+					accountSharedService.getLastLoginDate(username), authorities);
+		} catch (ResourceNotFoundException e) {
+			throw new UsernameNotFoundException("user not found", e);
+		}
+	}
 
 }

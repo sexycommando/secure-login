@@ -46,7 +46,7 @@
         </encoder>
     </appender>
 
-    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+    <!--<appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
         <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
             <dataSource class="org.apache.commons.dbcp2.BasicDataSource">
                 <driverClassName>org.h2.Driver</driverClassName>
@@ -55,7 +55,7 @@
                 <password></password>
             </dataSource>
         </connectionSource>
-    </appender>
+    </appender>-->
 
     <!-- Application Loggers -->
     <logger name="org.terasoluna.securelogin.domain">
@@ -69,7 +69,7 @@
         additivity="false">
         <level value="info" />
         <appender-ref ref="AUDIT_LOG_FILE" />
-        <appender-ref ref="DB" />
+        <!--<appender-ref ref="DB" />-->
     </logger>
 
     <!-- TERASOLUNA -->
@@ -87,7 +87,7 @@
         additivity="false">
         <level value="error" />
         <appender-ref ref="MONITORING_LOG_FILE" />
-        <appender-ref ref="DB" />
+        <!--<appender-ref ref="DB" />-->
     </logger>
     <logger name="org.terasoluna.gfw.web.logging.HttpSessionEventLoggingListener">
         <level value="debug" />
@@ -107,11 +107,11 @@
         <level value="info" />
     </logger>
 
-
+    <!-- log4jdbc -->
     <logger name="jdbc.sqltiming" additivity="true" level="on">
         <level value="info" />
     </logger>
-    <logger name="jdbc.connection" additivity="true" level="on">
+    <logger name="jdbc.connection" additivity="false" level="off">
         <level value="info" />
     </logger>
     <logger name="jdbc.sqlonly" additivity="false" level="off" />
@@ -119,11 +119,10 @@
     <logger name="jdbc.resultset" additivity="false" level="off" />
     <logger name="jdbc.resultsettable" additivity="false" level="off" />
 
-
     <root level="warn">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="APPLICATION_LOG_FILE" />
-        <appender-ref ref="DB" />
+        <!--<appender-ref ref="DB" />-->
     </root>
 
 </configuration>
